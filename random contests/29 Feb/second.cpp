@@ -7,22 +7,18 @@ int main(){
     while(t--){
         int n;
         cin>>n;
-        string s1,s2;
+        string s1,s2,ans;
         cin>>s1>>s2;
-        int k=0, count=0, firstz=-1, lastz=-1;
+        int k=0, count=0;
         bool a=1;
-        for (int i = 0; i <n; i++){
-            if(s2[i]=='0'){
-                firstz=i;
-                break;
-            }
+
+        int zeros=0;
+        for(int i=0; i<n; i++){
+            if(s1[i]=='0') zeros++;
+            if(s1[i]==s2[i-1] && i!=0) count++;
         }
-        for (int i =n-1; i>=0; i--){
-            if(s2[i]=='0'){
-                lastz=i;
-                break;
-            }
-        }
+        if(s1[n-1]==s2[n-2])count++;
+
         while(n>0){
             if(s2[k]=='0' && a){
                 if(a){
@@ -35,10 +31,12 @@ int main(){
             }else {
                 cout<<s1[k];
             }
+            
             k++;
             n--;
         }
-        if(firstz!=-1 &&  lastz!=-1) cout<<endl<<(lastz-firstz+1)<<endl;
-        else cout<<endl<<1<<endl;
+       
+
+        cout<<endl<<max(zeros,count)<<endl;
     }
 }
